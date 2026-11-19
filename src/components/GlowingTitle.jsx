@@ -14,7 +14,7 @@ export default function GlowingTitle() {
           initial={{ opacity: 0, scale: 0.9, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="glow-gold-text text-5xl sm:text-7xl md:text-8xl tracking-wide select-none leading-tight"
+          className="glow-gold-text text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-wide select-none leading-tight max-w-[95vw] sm:max-w-none"
         >
           Chúc Mừng Sinh Nhật
         </motion.h1>
