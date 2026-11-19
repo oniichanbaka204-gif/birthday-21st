@@ -7,27 +7,27 @@ export default function DrawingTitleReveal({ onComplete }) {
   const [showSubtitle, setShowSubtitle] = useState(false);
 
   useEffect(() => {
-    // 1. Text writes out for 2.2 seconds
+    // 1. Chữ viết chậm rãi, thanh thoát trong 5.5 giây (thay vì 2.2s quá nhanh)
     const drawTimer = setTimeout(() => {
       setIsDrawn(true);
       // Confetti sparkle burst when writing completes
       confetti({
-        particleCount: 75,
+        particleCount: 80,
         spread: 90,
         origin: { y: 0.5 },
         colors: ['#facc15', '#fde047', '#34d399', '#6ee7b7', '#ffffff'],
       });
-    }, 2200);
+    }, 5500);
 
-    // 2. Subtitle reveals
+    // 2. Subtitle reveals sau khi chữ vẽ xong
     const subTimer = setTimeout(() => {
       setShowSubtitle(true);
-    }, 2600);
+    }, 6000);
 
-    // 3. Automatically transition to centered film reel after 5.5s
+    // 3. Tự động chuyển cảnh sau 10 giây để người xem chiêm ngưỡng trọn vẹn
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, 5800);
+    }, 10000);
 
     return () => {
       clearTimeout(drawTimer);
@@ -50,7 +50,7 @@ export default function DrawingTitleReveal({ onComplete }) {
       </div>
 
       <div className="relative flex flex-col items-center max-w-4xl w-full text-center">
-        {/* SVG Handwriting Stroke Drawing Effect */}
+        {/* SVG Handwriting Stroke Drawing Effect - Vẽ chậm rãi, uốn lượn */}
         <div className="relative w-full flex justify-center items-center py-4">
           <svg
             viewBox="0 0 950 160"
@@ -69,7 +69,7 @@ export default function DrawingTitleReveal({ onComplete }) {
               </filter>
             </defs>
 
-            {/* Glowing stroke outline animating dashoffset */}
+            {/* Glowing stroke outline animating dashoffset chậm 5.5s */}
             <text
               x="50%"
               y="58%"
@@ -84,8 +84,8 @@ export default function DrawingTitleReveal({ onComplete }) {
               strokeDasharray="1400"
               strokeDashoffset="0"
               filter="url(#goldGlow)"
-              className={`transition-all duration-1000 ${
-                !isDrawn ? 'animate-draw-text' : 'glow-gold-text'
+              className={`transition-all duration-1200 ${
+                !isDrawn ? 'animate-draw-text-slow' : 'glow-gold-text'
               }`}
             >
               Chúc Mừng Sinh Nhật

@@ -20,13 +20,13 @@
   }
 }
 
-/* Handwriting stroke drawing animation */
-@keyframes drawText {
+/* Handwriting stroke drawing animation - Chậm rãi thanh thoát 5.5s */
+@keyframes drawTextSlow {
   0% {
     stroke-dashoffset: 1400;
-    opacity: 0.2;
+    opacity: 0.1;
   }
-  20% {
+  15% {
     opacity: 1;
   }
   100% {
@@ -35,8 +35,8 @@
   }
 }
 
-.animate-draw-text {
-  animation: drawText 2.2s ease-out forwards;
+.animate-draw-text-slow {
+  animation: drawTextSlow 5.5s cubic-bezier(0.35, 0, 0.25, 1) forwards;
 }
 
 /* Custom glow text effect matching the reference image */
@@ -82,7 +82,7 @@
   animation: twinkle 3s ease-in-out infinite;
 }
 
-/* Marquee Animations for 2-tier Filmstrip */
+/* Marquee Animations for 2-tier Filmstrip - TRÔI CHẬM RÃI, MƯỢT MÀ 105s & 120s */
 @keyframes marquee-ltr {
   0% { transform: translateX(-50%); }
   100% { transform: translateX(0%); }
@@ -96,13 +96,13 @@
 .animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marquee-rtl 42s linear infinite;
+  animation: marquee-rtl 105s linear infinite;
 }
 
 .animate-marquee-right {
   display: flex;
   width: max-content;
-  animation: marquee-ltr 48s linear infinite;
+  animation: marquee-ltr 115s linear infinite;
 }
 
 .pause-hover:hover {
