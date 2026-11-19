@@ -254,10 +254,16 @@ function FilmFrame({ item, index, isLiked, onLike, onSelect }) {
       {/* Khung ảnh 3:4 chân dung tự nhiên */}
       <div className="relative w-full aspect-[3/4] rounded overflow-hidden bg-black">
         <img
-          src={item.url}
+          src={item.thumb || item.url}
           alt={`Kỷ niệm ${frameNum}`}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          onError={(e) => {
+            if (e.currentTarget.src !== item.url) {
+              e.currentTarget.src = item.url;
+            }
+          }}
         />
 
         {/* Vintage Camera Amber Date Stamp in the bottom-right corner */}
