@@ -83,9 +83,10 @@ export function playBirthdayFanfare() {
 // Manages background music playback
 export function startSong(onFallback) {
   try {
-    const audio = new Audio('/audio/birthday-song.mp3');
+    // Try amthanh.mp3 first, then birthday-song.mp3
+    const audio = new Audio('/audio/amthanh.mp3');
     audio.loop = true;
-    audio.volume = 0.7;
+    audio.volume = 0.8;
 
     const playPromise = audio.play();
     if (playPromise !== undefined) {
@@ -94,8 +95,18 @@ export function startSong(onFallback) {
           currentAudioElement = audio;
         })
         .catch((error) => {
-          console.log("No custom MP3 found at /audio/birthday-song.mp3 or autoplay blocked. Using synth audio fallback.");
-          if (onFallback) onFallback();
+          console.log("Trying /audio/birthday-song.mp3 fallback...");
+          const fallbackAudio = new Audio('/audio/birthday-song.mp3');
+          fallbackAudio.loop = true;
+          fallbackAudio.volume = 0.8;
+          fallbackAudio.play()
+            .then(() => {
+              currentAudioElement = fallbackAudio;
+            })
+            .catch((e) => {
+              console.log("No audio file found or autoplay blocked. Using synth audio fallback.");
+              if (onFallback) onFallback();
+            });
         });
     }
   } catch (e) {
