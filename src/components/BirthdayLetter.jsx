@@ -98,29 +98,29 @@ export default function BirthdayLetter() {
             exit={{ scale: 0.8, opacity: 0, y: -20 }}
             whileHover={{ scale: 1.03 }}
             onClick={handleOpenLetter}
-            className="group relative cursor-pointer w-full max-w-md bg-gradient-to-br from-[#0c2f23] via-[#092219] to-[#04150f] border-2 border-emerald-500/50 rounded-2xl p-6 sm:p-8 shadow-[0_0_35px_rgba(16,185,129,0.3)] text-center flex flex-col items-center transition-all duration-300"
+            className="group relative cursor-pointer w-full max-w-md bg-gradient-to-br from-[#185c45] via-[#124836] to-[#0d3627] border-2 border-emerald-400/60 rounded-3xl p-6 sm:p-8 shadow-[0_0_45px_rgba(52,211,153,0.35)] text-center flex flex-col items-center transition-all duration-300"
           >
             {/* Ambient glow behind envelope */}
-            <div className="absolute inset-0 bg-emerald-500/10 blur-xl rounded-2xl pointer-events-none" />
+            <div className="absolute inset-0 bg-emerald-400/20 blur-xl rounded-3xl pointer-events-none" />
 
             {/* Wax Seal Stamp "21" */}
-            <div className="relative mb-4 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-yellow-400 via-amber-500 to-amber-600 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.6)] border-2 border-yellow-200">
+            <div className="relative mb-4 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-yellow-300 via-amber-400 to-amber-500 flex items-center justify-center shadow-[0_0_25px_rgba(245,158,11,0.7)] border-2 border-yellow-100">
               <span className="font-serif font-black text-2xl sm:text-3xl text-emerald-950">
                 21
               </span>
               <Sparkles className="absolute -top-1 -right-1 text-yellow-100 w-5 h-5 animate-spin" style={{ animationDuration: '6s' }} />
             </div>
 
-            <h3 className="text-xl sm:text-2xl font-bold text-emerald-100 flex items-center gap-2 mb-2 font-serif">
-              <Mail className="w-6 h-6 text-yellow-400" />
+            <h3 className="text-xl sm:text-2xl font-bold text-emerald-50 flex items-center gap-2 mb-2 font-serif drop-shadow-sm">
+              <Mail className="w-6 h-6 text-yellow-300" />
               Lá Thư Gửi Bạn
             </h3>
 
-            <p className="text-emerald-300/80 text-xs sm:text-sm max-w-xs mb-4">
+            <p className="text-emerald-100 text-xs sm:text-sm max-w-xs mb-4">
               Có một thông điệp đặc biệt đang chờ bạn mở ra nhân ngày sinh nhật tuổi 21...
             </p>
 
-            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-medium text-xs sm:text-sm shadow-lg shadow-emerald-900/50 group-hover:from-emerald-500 group-hover:to-teal-400 transition-all">
+            <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500 text-emerald-950 font-bold text-xs sm:text-sm shadow-lg shadow-emerald-950/40 group-hover:from-emerald-400 group-hover:to-teal-300 transition-all hover:scale-105">
               <span>Chạm để mở thư 💌</span>
             </span>
           </motion.div>
@@ -131,7 +131,7 @@ export default function BirthdayLetter() {
             initial={{ scale: 0.85, opacity: 0, y: 30 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="relative w-full bg-[#f4faf6] text-emerald-950 rounded-2xl p-6 sm:p-10 shadow-[0_0_50px_rgba(245,158,11,0.35)] border-4 border-yellow-400/70"
+            className="relative w-full bg-gradient-to-b from-[#fcfdfa] to-[#f2faf4] text-emerald-950 rounded-2xl p-6 sm:p-10 shadow-[0_0_60px_rgba(245,158,11,0.35)] border-4 border-yellow-400/80"
           >
             {/* Vintage inner border */}
             <div className="absolute inset-2 border border-emerald-700/20 rounded-xl pointer-events-none" />

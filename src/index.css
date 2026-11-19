@@ -11,7 +11,9 @@
     padding: 0;
     width: 100%;
     min-height: 100%;
-    background-color: #061a14;
+    /* Luxury Royal Emerald Gradient with warm ambient center lighting */
+    background: radial-gradient(circle at 50% 20%, #1b5e45 0%, #144936 38%, #0d3326 72%, #082319 100%);
+    background-attachment: fixed;
     color: #f0fdf4;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
@@ -42,13 +44,13 @@
   font-family: 'Dancing Script', 'Great Vibes', cursive;
   color: #fff9db;
   text-shadow: 
-    0 0 5px #fffae6,
-    0 0 10px #ffe066,
-    0 0 20px #ffcc00,
-    0 0 35px #ffaa00,
-    0 0 50px #ff8800,
-    0 0 80px rgba(255, 136, 0, 0.6);
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+    0 0 6px #fffae6,
+    0 0 12px #ffe066,
+    0 0 24px #ffcc00,
+    0 0 40px #ffaa00,
+    0 0 60px #ff8800,
+    0 0 90px rgba(255, 136, 0, 0.7);
+  filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.8));
 }
 
 .glow-gold-subtle {
@@ -59,38 +61,25 @@
 
 .glow-box-gold {
   box-shadow: 
-    0 0 15px rgba(255, 204, 0, 0.25),
-    0 0 30px rgba(255, 170, 0, 0.15),
-    inset 0 0 15px rgba(255, 224, 102, 0.1);
+    0 0 20px rgba(255, 204, 0, 0.35),
+    0 0 40px rgba(255, 170, 0, 0.2),
+    inset 0 0 15px rgba(255, 224, 102, 0.15);
 }
 
 .glow-box-emerald {
   box-shadow: 
-    0 0 20px rgba(16, 185, 129, 0.2),
-    0 0 40px rgba(5, 150, 105, 0.1);
+    0 0 25px rgba(52, 211, 153, 0.3),
+    0 0 50px rgba(16, 185, 129, 0.15);
 }
 
 /* Star twinkle effect */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+  0%, 100% { opacity: 0.35; transform: scale(0.85) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.25) rotate(180deg); }
 }
 
 .animate-twinkle {
   animation: twinkle 3s ease-in-out infinite;
-}
-
-/* Filmstrip Perforations */
-.film-perforations-top {
-  background-image: radial-gradient(circle, #061a14 32%, transparent 34%);
-  background-size: 24px 20px;
-  background-repeat: repeat-x;
-}
-
-.film-perforations-bottom {
-  background-image: radial-gradient(circle, #061a14 32%, transparent 34%);
-  background-size: 24px 20px;
-  background-repeat: repeat-x;
 }
 
 /* Marquee Animations for 2-tier Filmstrip */
@@ -107,13 +96,13 @@
 .animate-marquee-left {
   display: flex;
   width: max-content;
-  animation: marquee-rtl 40s linear infinite;
+  animation: marquee-rtl 42s linear infinite;
 }
 
 .animate-marquee-right {
   display: flex;
   width: max-content;
-  animation: marquee-ltr 45s linear infinite;
+  animation: marquee-ltr 48s linear infinite;
 }
 
 .pause-hover:hover {
@@ -126,12 +115,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #04130e;
+  background: #0d3326;
 }
 ::-webkit-scrollbar-thumb {
-  background: #15803d;
+  background: #10b981;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #22c55e;
+  background: #34d399;
 }

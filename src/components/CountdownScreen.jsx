@@ -6,7 +6,6 @@ export default function CountdownScreen({ onComplete }) {
   const [count, setCount] = useState(10);
 
   useEffect(() => {
-    // Play sound for initial number 10
     playCountdownBeep(10);
 
     const timer = setInterval(() => {
@@ -28,18 +27,19 @@ export default function CountdownScreen({ onComplete }) {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[#051610]/95 backdrop-blur-md px-4 overflow-hidden">
-      {/* Decorative ambient rings */}
-      <div className="absolute w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] rounded-full border border-emerald-500/20 animate-ping opacity-25 pointer-events-none" />
-      <div className="absolute w-[200px] h-[200px] sm:w-[320px] sm:h-[320px] rounded-full border border-yellow-500/20 animate-pulse pointer-events-none" />
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-gradient-to-b from-[#165540]/95 via-[#104332]/95 to-[#0b2f23]/98 backdrop-blur-md px-4 overflow-hidden">
+      {/* Decorative luxury rings */}
+      <div className="absolute w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full border border-emerald-400/30 animate-ping opacity-30 pointer-events-none" />
+      <div className="absolute w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] rounded-full border-2 border-yellow-300/30 animate-pulse pointer-events-none" />
+      <div className="absolute w-72 h-72 rounded-full bg-emerald-400/20 blur-3xl pointer-events-none" />
 
       {/* Top message */}
       <motion.p
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-emerald-300/80 font-medium tracking-widest uppercase text-xs sm:text-sm mb-6 sm:mb-8 text-center"
+        className="text-emerald-200 font-semibold tracking-widest uppercase text-xs sm:text-sm mb-6 sm:mb-8 text-center drop-shadow-sm flex items-center gap-2"
       >
-        ✨ Đếm ngược chào đón tuổi 21 rạng rỡ ✨
+        <span>✨</span> Đếm ngược chào đón tuổi 21 rạng rỡ <span>✨</span>
       </motion.p>
 
       {/* Big Animated Number */}
@@ -52,7 +52,7 @@ export default function CountdownScreen({ onComplete }) {
               animate={{ scale: 1, opacity: 1, rotate: 0 }}
               exit={{ scale: 1.6, opacity: 0, filter: 'blur(10px)' }}
               transition={{ duration: 0.65, ease: 'easeOut' }}
-              className="absolute text-8xl sm:text-9xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#fffbeb] via-[#fde047] to-[#ca8a04] drop-shadow-[0_0_35px_rgba(250,204,21,0.9)]"
+              className="absolute text-8xl sm:text-9xl font-bold font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#fffbeb] via-[#fde047] to-[#eab308] drop-shadow-[0_0_40px_rgba(250,204,21,0.95)]"
             >
               {count}
             </motion.div>
@@ -65,7 +65,7 @@ export default function CountdownScreen({ onComplete }) {
           initial={{ scale: 0.8, opacity: 0.8 }}
           animate={{ scale: 1.5, opacity: 0 }}
           transition={{ duration: 0.85 }}
-          className="absolute inset-0 rounded-full border-2 border-yellow-400/60 pointer-events-none"
+          className="absolute inset-0 rounded-full border-2 border-yellow-300/70 pointer-events-none"
         />
       </div>
 
@@ -74,17 +74,17 @@ export default function CountdownScreen({ onComplete }) {
         {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((n) => (
           <div
             key={n}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
+            className={`h-2 rounded-full transition-all duration-300 ${
               count <= n
-                ? 'w-6 bg-yellow-400 shadow-[0_0_8px_#facc15]'
-                : 'w-2 bg-emerald-800/60'
+                ? 'w-7 bg-yellow-300 shadow-[0_0_12px_#fde047]'
+                : 'w-2.5 bg-emerald-700/60'
             }`}
           />
         ))}
       </div>
 
-      <p className="text-emerald-400/60 text-xs sm:text-sm mt-4 font-light text-center">
-        Điều kỳ diệu đang được chuẩn bị dành riêng cho bạn...
+      <p className="text-emerald-200/80 text-xs sm:text-sm mt-5 font-medium text-center">
+        Điều tuyệt vời nhất đang chuẩn bị bừng sáng...
       </p>
     </div>
   );

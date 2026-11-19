@@ -12,10 +12,10 @@ export default function DrawingTitleReveal({ onComplete }) {
       setIsDrawn(true);
       // Confetti sparkle burst when writing completes
       confetti({
-        particleCount: 60,
-        spread: 80,
+        particleCount: 75,
+        spread: 90,
         origin: { y: 0.5 },
-        colors: ['#facc15', '#fbbf24', '#34d399', '#ffffff'],
+        colors: ['#facc15', '#fde047', '#34d399', '#6ee7b7', '#ffffff'],
       });
     }, 2200);
 
@@ -37,14 +37,16 @@ export default function DrawingTitleReveal({ onComplete }) {
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-[#051711] px-4 overflow-hidden select-none">
-      {/* Deep starry background aura */}
-      <div className="absolute w-[500px] h-[300px] sm:w-[800px] sm:h-[450px] bg-gradient-to-r from-emerald-600/15 via-yellow-500/20 to-emerald-600/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-gradient-to-b from-[#165540] via-[#104332] to-[#0c3327] px-4 overflow-hidden select-none">
+      {/* Radiant celebratory emerald & gold aura */}
+      <div className="absolute w-[600px] h-[350px] sm:w-[900px] sm:h-[500px] bg-gradient-to-r from-emerald-400/25 via-yellow-400/30 to-emerald-400/25 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute w-[350px] h-[350px] bg-teal-300/15 rounded-full blur-2xl pointer-events-none" />
 
       {/* Floating ambient sparks */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/5 w-2 h-2 rounded-full bg-yellow-300 blur-xs animate-ping" />
-        <div className="absolute bottom-1/3 right-1/4 w-2 h-2 rounded-full bg-emerald-300 blur-xs animate-pulse" />
+        <div className="absolute top-1/4 left-1/5 w-2.5 h-2.5 rounded-full bg-yellow-200 blur-xs animate-ping" />
+        <div className="absolute bottom-1/3 right-1/4 w-2.5 h-2.5 rounded-full bg-emerald-200 blur-xs animate-pulse" />
+        <div className="absolute top-1/3 right-1/6 w-2 h-2 rounded-full bg-rose-200 blur-xs animate-pulse" />
       </div>
 
       <div className="relative flex flex-col items-center max-w-4xl w-full text-center">
@@ -90,12 +92,12 @@ export default function DrawingTitleReveal({ onComplete }) {
             </text>
           </svg>
 
-          {/* Magic Sparkler Star following the writing (Left star) */}
+          {/* Magic Sparkler Star (Left star) */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={{
               opacity: isDrawn ? [0.8, 1, 0.8] : [0, 1, 1],
-              scale: isDrawn ? [0.9, 1.2, 0.9] : [0.5, 1.2, 1],
+              scale: isDrawn ? [0.9, 1.25, 0.9] : [0.5, 1.2, 1],
             }}
             transition={{
               repeat: isDrawn ? Infinity : 0,
@@ -104,9 +106,9 @@ export default function DrawingTitleReveal({ onComplete }) {
             }}
             className="absolute left-4 sm:left-12 top-1/2 -translate-y-1/2 pointer-events-none"
           >
-            <div className="absolute -inset-3 bg-yellow-400/40 rounded-full blur-md" />
+            <div className="absolute -inset-3 bg-yellow-400/50 rounded-full blur-md" />
             <svg
-              className="w-6 h-6 sm:w-9 sm:h-9 relative z-10 drop-shadow-[0_0_12px_#fde047]"
+              className="w-6 h-6 sm:w-9 sm:h-9 relative z-10 drop-shadow-[0_0_15px_#fde047]"
               viewBox="0 0 100 100"
               fill="none"
             >
@@ -132,9 +134,9 @@ export default function DrawingTitleReveal({ onComplete }) {
             }}
             className="absolute right-4 sm:right-14 -top-1 pointer-events-none"
           >
-            <div className="absolute -inset-4 bg-yellow-400/50 rounded-full blur-lg" />
+            <div className="absolute -inset-4 bg-yellow-400/60 rounded-full blur-lg" />
             <svg
-              className="w-8 h-8 sm:w-11 sm:h-11 relative z-10 drop-shadow-[0_0_15px_#fde047]"
+              className="w-8 h-8 sm:w-11 sm:h-11 relative z-10 drop-shadow-[0_0_18px_#fde047]"
               viewBox="0 0 100 100"
               fill="none"
             >
@@ -155,20 +157,18 @@ export default function DrawingTitleReveal({ onComplete }) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="flex flex-col items-center gap-2 mt-1 sm:mt-3"
+              className="flex flex-col items-center gap-2 mt-2 sm:mt-3"
             >
-              {/* TUỔI 21 RỰC RỠ & HẠNH PHÚC */}
-              <span className="text-yellow-100 font-bold tracking-[0.22em] sm:tracking-[0.32em] text-xs sm:text-base uppercase drop-shadow-[0_0_10px_rgba(250,204,21,0.6)]">
+              <span className="text-yellow-200 font-bold tracking-[0.25em] sm:tracking-[0.35em] text-xs sm:text-base uppercase drop-shadow-[0_0_15px_rgba(250,204,21,0.7)]">
                 TUỔI 21 RỰC RỠ & HẠNH PHÚC
               </span>
 
-              {/* — HAPPY 21ST BIRTHDAY — with thin golden dividers */}
               <div className="flex items-center gap-3 mt-1">
-                <span className="h-[1px] w-8 sm:w-14 bg-gradient-to-r from-transparent via-emerald-400 to-yellow-400" />
-                <span className="text-emerald-300 font-medium tracking-[0.18em] text-[10px] sm:text-xs uppercase">
+                <span className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-r from-transparent via-emerald-300 to-yellow-300" />
+                <span className="text-emerald-200 font-semibold tracking-[0.2em] text-[10px] sm:text-xs uppercase drop-shadow-sm">
                   HAPPY 21ST BIRTHDAY
                 </span>
-                <span className="h-[1px] w-8 sm:w-14 bg-gradient-to-l from-transparent via-emerald-400 to-yellow-400" />
+                <span className="h-[1.5px] w-8 sm:w-16 bg-gradient-to-l from-transparent via-emerald-300 to-yellow-300" />
               </div>
             </motion.div>
           )}
@@ -184,11 +184,11 @@ export default function DrawingTitleReveal({ onComplete }) {
           >
             <button
               onClick={onComplete}
-              className="px-6 py-2 rounded-full bg-emerald-900/60 hover:bg-emerald-800/80 border border-emerald-500/40 text-emerald-200 text-xs sm:text-sm font-medium tracking-wide shadow-lg shadow-emerald-950/60 transition-all hover:scale-105 cursor-pointer backdrop-blur-sm"
+              className="px-6 py-2.5 rounded-full bg-emerald-800/80 hover:bg-emerald-700/90 border border-emerald-400/50 text-emerald-100 text-xs sm:text-sm font-semibold tracking-wide shadow-lg shadow-emerald-950/50 transition-all hover:scale-105 cursor-pointer backdrop-blur-sm"
             >
               Xem Cuộn Phim Kỷ Niệm 🎬 ✨
             </button>
-            <span className="text-[11px] text-emerald-400/50">
+            <span className="text-[11px] text-emerald-200/70">
               (Tự động chuyển cảnh sau giây lát...)
             </span>
           </motion.div>
