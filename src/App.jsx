@@ -9,14 +9,25 @@ import PeekABooChicken from './components/PeekABooChicken';
 import HeartParticles from './components/HeartParticles';
 import AudioControls from './components/AudioControls';
 import FloatingWishes from './components/FloatingWishes';
+import FloatingWishCTA from './components/FloatingWishCTA';
 import WishModal from './components/WishModal';
-import { startSong } from './utils/audioPlayer';
 import { GOOGLE_SCRIPT_URL, initialWishes } from './config/wishesConfig';
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 export default function App() {
   const [stage, setStage] = useState('intro');
-  const [wishes, setWishes] = useState(initialWishes);
+  const [wishes, setWishes] = useState(() => {
+    try {
+      const saved = localStorage.getItem('birthday_wishes_saved');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      console.log('Error reading cached wishes:', e);
+    }
+    return initialWishes;
+  });
   const [isWishModalOpen, setIsWishModalOpen] = useState(false);
 
   // Tải danh sách lời chúc từ Google Sheets (nếu đã cài đặt URL)
@@ -27,10 +38,13 @@ export default function App() {
         .then((data) => {
           if (Array.isArray(data) && data.length > 0) {
             setWishes(data);
+            try {
+              localStorage.setItem('birthday_wishes_saved', JSON.stringify(data));
+            } catch (e) {}
           }
         })
         .catch((err) => {
-          console.log("Using initial wishes, Google Sheet sync pending:", err);
+          console.log("Google Sheets sync pending:", err);
         });
     }
   }, []);
@@ -52,7 +66,13 @@ export default function App() {
   };
 
   const handleAddWish = (newWish) => {
-    setWishes((prev) => [newWish, ...prev]);
+    setWishes((prev) => {
+      const updated = [newWish, ...prev];
+      try {
+        localStorage.setItem('birthday_wishes_saved', JSON.stringify(updated));
+      } catch (e) {}
+      return updated;
+    });
   };
 
   return (
@@ -105,8 +125,11 @@ export default function App() {
             </p>
           </div>
 
-          {/* LỜI CHÚC BAY BỔNG ẨN HIỆN TRÊN MÀN HÌNH (KHÔNG CẦN BẤM CLICK) */}
+          {/* LỜI CHÚC BAY BỔNG ẨN HIỆN TRÊN MÀN HÌNH (CHỈ HIỆN KHI CÓ NGƯỜI NHẬP) */}
           <FloatingWishes wishes={wishes} />
+
+          {/* NÚT NỔI CỐ ĐỊNH "GỬI LỜI CHÚC" TRÊN MOBILE & DESKTOP (KHÔNG LO BỊ BỎ SÓT) */}
+          <FloatingWishCTA onOpenWishModal={() => setIsWishModalOpen(true)} />
 
           {/* CUỘN PHIM Ở CHÍNH GIỮA MÀN HÌNH */}
           <div className="w-full my-auto flex flex-col items-center justify-center">
