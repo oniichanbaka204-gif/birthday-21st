@@ -134,57 +134,62 @@ export default function FilmReelGallery() {
         Chạm vào ảnh bất kỳ để phóng to hoặc thả tim nhé!
       </p>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal - Tối ưu hiển thị trọn vẹn 100% ảnh không bị cắt đầu/mặt */}
       <AnimatePresence>
         {selectedPhoto && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md"
             onClick={() => setSelectedPhoto(null)}
           >
             <motion.div
               initial={{ scale: 0.85, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.85, y: 20 }}
-              className="relative max-w-lg w-full bg-gradient-to-b from-[#144f3b] to-[#0c3325] border-2 border-emerald-400/60 rounded-2xl p-4 shadow-[0_0_50px_rgba(16,185,129,0.4)] overflow-hidden"
+              className="relative max-w-lg w-full max-h-[92vh] flex flex-col bg-gradient-to-b from-[#144f3b] to-[#0c3325] border-2 border-emerald-400/60 rounded-2xl p-3 sm:p-5 shadow-[0_0_50px_rgba(16,185,129,0.4)] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Nút đóng to dễ chạm */}
               <button
                 onClick={() => setSelectedPhoto(null)}
-                className="absolute top-3 right-3 p-1.5 rounded-full bg-emerald-900/80 hover:bg-emerald-800 text-emerald-100 transition-colors z-20 cursor-pointer"
+                className="absolute top-2.5 right-2.5 p-2 rounded-full bg-emerald-950/80 hover:bg-emerald-800 text-emerald-100 transition-colors z-30 cursor-pointer shadow-md border border-emerald-500/30"
+                aria-label="Đóng ảnh"
               >
-                <X size={18} />
+                <X size={20} />
               </button>
 
-              <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-black/40 mb-3 border border-emerald-400/30">
+              {/* Khung ảnh co dãn linh hoạt hiển thị TOÀN BỘ khuôn mặt và thân hình */}
+              <div className="relative w-full max-h-[68vh] flex items-center justify-center rounded-xl overflow-hidden bg-black/60 mb-3 border border-emerald-400/30 p-1">
                 <img
                   src={selectedPhoto.url}
                   alt={selectedPhoto.caption}
-                  className="w-full h-full object-cover"
+                  className="max-h-[65vh] w-auto max-w-full object-contain rounded-lg shadow-lg block"
                 />
               </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-emerald-50 font-bold text-base sm:text-lg">
+              {/* Thanh thông tin dưới ảnh */}
+              <div className="flex items-center justify-between px-1 pt-1">
+                <div className="pr-3">
+                  <h3 className="text-emerald-50 font-bold text-sm sm:text-base leading-snug">
                     {selectedPhoto.caption}
                   </h3>
-                  <p className="text-emerald-200/80 text-xs sm:text-sm">
+                  <p className="text-emerald-200/80 text-xs mt-0.5">
                     {selectedPhoto.date}
                   </p>
                 </div>
                 <button
                   onClick={(e) => toggleLike(selectedPhoto.id, e)}
-                  className={`p-2.5 rounded-full border transition-all cursor-pointer ${
+                  className={`p-2.5 rounded-full border transition-all cursor-pointer flex-shrink-0 ${
                     likedPhotos[selectedPhoto.id]
                       ? 'bg-rose-500/30 border-rose-400 text-rose-300 scale-110 shadow-[0_0_20px_rgba(244,63,94,0.6)]'
                       : 'bg-emerald-900/50 border-emerald-500/40 text-emerald-200 hover:text-rose-300'
                   }`}
+                  aria-label="Thả tim"
                 >
                   <Heart
-                    size={20}
+                    size={22}
                     fill={likedPhotos[selectedPhoto.id] ? 'currentColor' : 'none'}
                   />
                 </button>
@@ -197,19 +202,20 @@ export default function FilmReelGallery() {
   );
 }
 
-// Subcomponent: Individual Film Card
+// Subcomponent: Individual Film Card - Tối ưu tỷ lệ 3:4 chân dung để không bị cắt mặt
 function FilmCard({ item, isLiked, onLike, onSelect }) {
   return (
     <div
       onClick={onSelect}
-      className="group relative flex-shrink-0 w-44 sm:w-60 bg-gradient-to-b from-[#134a36] to-[#0c3225] p-2.5 rounded-xl border border-emerald-400/50 shadow-md hover:border-yellow-300 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(250,204,21,0.35)] cursor-pointer"
+      className="group relative flex-shrink-0 w-36 sm:w-48 bg-gradient-to-b from-[#134a36] to-[#0c3225] p-2 sm:p-2.5 rounded-xl border border-emerald-400/50 shadow-md hover:border-yellow-300 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_0_25px_rgba(250,204,21,0.35)] cursor-pointer"
     >
-      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-emerald-950/80">
+      {/* Tỷ lệ 3:4 chuẩn ảnh dọc chân dung + object-top ưu tiên khuôn mặt */}
+      <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-emerald-950/80">
         <img
           src={item.url}
           alt={item.caption}
           loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
@@ -222,6 +228,7 @@ function FilmCard({ item, isLiked, onLike, onSelect }) {
               ? 'bg-rose-500/90 text-white scale-110 shadow-md'
               : 'bg-black/50 text-emerald-100 hover:text-rose-300'
           }`}
+          aria-label="Thả tim"
         >
           <Heart size={14} fill={isLiked ? 'currentColor' : 'none'} />
         </button>
