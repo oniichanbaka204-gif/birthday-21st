@@ -8,7 +8,7 @@ import BirthdayLetter from './components/BirthdayLetter';
 import PeekABooChicken from './components/PeekABooChicken';
 import HeartParticles from './components/HeartParticles';
 import AudioControls from './components/AudioControls';
-import WishesMarquee from './components/WishesMarquee';
+import FloatingWishes from './components/FloatingWishes';
 import WishModal from './components/WishModal';
 import { startSong } from './utils/audioPlayer';
 import { GOOGLE_SCRIPT_URL, initialWishes } from './config/wishesConfig';
@@ -105,8 +105,8 @@ export default function App() {
             </p>
           </div>
 
-          {/* DẢI BĂNG LỜI CHÚC TỪ MỌI NGƯỜI (HIỂN THỊ NGAY Ở CUỘN PHIM) */}
-          <WishesMarquee wishes={wishes} />
+          {/* LỜI CHÚC BAY BỔNG ẨN HIỆN TRÊN MÀN HÌNH (KHÔNG CẦN BẤM CLICK) */}
+          <FloatingWishes wishes={wishes} />
 
           {/* CUỘN PHIM Ở CHÍNH GIỮA MÀN HÌNH */}
           <div className="w-full my-auto flex flex-col items-center justify-center">
