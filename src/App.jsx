@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import IntroGate from './components/IntroGate';
 import CountdownScreen from './components/CountdownScreen';
@@ -8,16 +8,32 @@ import BirthdayLetter from './components/BirthdayLetter';
 import PeekABooChicken from './components/PeekABooChicken';
 import HeartParticles from './components/HeartParticles';
 import AudioControls from './components/AudioControls';
+import WishesMarquee from './components/WishesMarquee';
+import WishModal from './components/WishModal';
 import { startSong } from './utils/audioPlayer';
+import { GOOGLE_SCRIPT_URL, initialWishes } from './config/wishesConfig';
 import { Heart, Sparkles } from 'lucide-react';
 
 export default function App() {
-  // Seamless Stages:
-  // 1. 'intro': Click to start & play audio
-  // 2. 'countdown': 10 -> 1 audio synced
-  // 3. 'drawing_title': Chữ vàng "Chúc Mừng Sinh Nhật" VẼ RA ở giữa màn hình!
-  // 4. 'film_showcase': Chuyển cảnh sang Cuộn phim ở CHÍNH GIỮA MÀN HÌNH!
   const [stage, setStage] = useState('intro');
+  const [wishes, setWishes] = useState(initialWishes);
+  const [isWishModalOpen, setIsWishModalOpen] = useState(false);
+
+  // Tải danh sách lời chúc từ Google Sheets (nếu đã cài đặt URL)
+  useEffect(() => {
+    if (GOOGLE_SCRIPT_URL) {
+      fetch(GOOGLE_SCRIPT_URL)
+        .then((res) => res.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setWishes(data);
+          }
+        })
+        .catch((err) => {
+          console.log("Using initial wishes, Google Sheet sync pending:", err);
+        });
+    }
+  }, []);
 
   const handleStart = () => {
     startSong();
@@ -25,17 +41,19 @@ export default function App() {
   };
 
   const handleCountdownComplete = () => {
-    // Ngay sau khi đếm 10 -> 1 xong: Chuyển sang màn VẼ CHỮ
     setStage('drawing_title');
   };
 
   const handleTitleComplete = () => {
-    // Sau khi chữ vẽ xong: Chuyển cảnh sang CUỘN PHIM Ở GIỮA MÀN HÌNH
     setStage('film_showcase');
   };
 
   const handleRestart = () => {
     setStage('intro');
+  };
+
+  const handleAddWish = (newWish) => {
+    setWishes((prev) => [newWish, ...prev]);
   };
 
   return (
@@ -69,7 +87,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* GIAI ĐOẠN 4: CHUYỂN CẢNH SANG CUỘN PHIM Ở CHÍNH GIỮA MÀN HÌNH */}
+      {/* GIAI ĐOẠN 4: CHUYỂN CẢNH SANG CUỘN PHIM & LỜI CHÚC Ở CHÍNH GIỮA MÀN HÌNH */}
       {stage === 'film_showcase' && (
         <motion.div
           key="film_showcase"
@@ -88,14 +106,17 @@ export default function App() {
             </p>
           </div>
 
+          {/* DẢI BĂNG LỜI CHÚC TỪ MỌI NGƯỜI (HIỂN THỊ NGAY Ở CUỘN PHIM) */}
+          <WishesMarquee wishes={wishes} />
+
           {/* CUỘN PHIM Ở CHÍNH GIỮA MÀN HÌNH */}
           <div className="w-full my-auto flex flex-col items-center justify-center">
             <FilmReelGallery />
           </div>
 
-          {/* BỨC THƯ SINH NHẬT */}
+          {/* BỨC THƯ SINH NHẬT + NÚT GỬI LỜI CHÚC NẰM Ở DƯỚI BỨC THƯ */}
           <div className="w-full flex justify-center pb-8">
-            <BirthdayLetter />
+            <BirthdayLetter onOpenWishModal={() => setIsWishModalOpen(true)} />
           </div>
 
           {/* CHÚ GÀ MASCOT LẤP LÓ */}
@@ -109,6 +130,13 @@ export default function App() {
           </footer>
         </motion.div>
       )}
+
+      {/* POPUP MODAL VIẾT VÀ GỬI LỜI CHÚC */}
+      <WishModal
+        isOpen={isWishModalOpen}
+        onClose={() => setIsWishModalOpen(false)}
+        onAddWish={handleAddWish}
+      />
     </div>
   );
 }

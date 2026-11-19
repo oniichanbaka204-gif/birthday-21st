@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
 import { Mail, Sparkles, RefreshCw, FastForward } from 'lucide-react';
 
-export default function BirthdayLetter() {
+export default function BirthdayLetter({ onOpenWishModal }) {
   const [isOpen, setIsOpen] = useState(false);
   const [letterContent, setLetterContent] = useState('');
   const [displayedText, setDisplayedText] = useState('');
@@ -195,6 +195,26 @@ export default function BirthdayLetter() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* NÚT GỬI LỜI CHÚC NẰM Ở DƯỚI BỨC THƯ */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-6 sm:mt-8 flex flex-col items-center gap-2"
+      >
+        <button
+          onClick={onOpenWishModal}
+          className="group relative px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-emerald-950 font-bold text-sm sm:text-base shadow-[0_0_30px_rgba(250,204,21,0.5)] hover:shadow-[0_0_45px_rgba(250,204,21,0.7)] transition-all hover:scale-105 cursor-pointer flex items-center gap-2.5"
+        >
+          <Mail className="w-5 h-5 text-emerald-950" />
+          <span>Gửi Lời Chúc Cho Cô Gái Tuổi 21 💌</span>
+          <Sparkles className="w-4 h-4 text-emerald-900 group-hover:rotate-45 transition-transform" />
+        </button>
+        <span className="text-[11px] text-emerald-200/80">
+          (Lời chúc của bạn sẽ xuất hiện trên màn hình cuộn phim ✨)
+        </span>
+      </motion.div>
     </section>
   );
 }
