@@ -18,6 +18,25 @@
   }
 }
 
+/* Handwriting stroke drawing animation */
+@keyframes drawText {
+  0% {
+    stroke-dashoffset: 1400;
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.animate-draw-text {
+  animation: drawText 2.2s ease-out forwards;
+}
+
 /* Custom glow text effect matching the reference image */
 .glow-gold-text {
   font-family: 'Dancing Script', 'Great Vibes', cursive;
