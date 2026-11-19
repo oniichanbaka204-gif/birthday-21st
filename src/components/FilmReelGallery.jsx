@@ -8,14 +8,14 @@ export default function FilmReelGallery() {
   const [isPaused, setIsPaused] = useState(false);
   const [likedPhotos, setLikedPhotos] = useState({});
 
-  // Split 43 photos into two rows for dual filmstrip
+  // Split photos into two rows for dual filmstrip
   const midIndex = Math.ceil(galleryPhotos.length / 2);
   const row1Photos = galleryPhotos.slice(0, midIndex);
   const row2Photos = galleryPhotos.slice(midIndex);
 
-  // Duplicate for seamless infinite loop
-  const infiniteRow1 = [...row1Photos, ...row1Photos, ...row1Photos];
-  const infiniteRow2 = [...row2Photos, ...row2Photos, ...row2Photos];
+  // Duplicate for seamless infinite loop (2 sets loop seamlessly with 50% marquee keyframe)
+  const infiniteRow1 = [...row1Photos, ...row1Photos];
+  const infiniteRow2 = [...row2Photos, ...row2Photos];
 
   const toggleLike = (id, e) => {
     e.stopPropagation();
@@ -34,8 +34,8 @@ export default function FilmReelGallery() {
           <h2 className="text-sm sm:text-base font-bold tracking-widest text-emerald-100 uppercase drop-shadow-sm">
             CUỘN PHIM KỶ NIỆM 35MM
           </h2>
-          <span className="text-[11px] px-2 py-0.5 rounded-full bg-emerald-900/60 border border-emerald-400/30 text-yellow-300 font-mono">
-            43 KHOẢNH KHẮC
+          <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-900/60 border border-emerald-400/30 text-yellow-300 font-mono">
+            {galleryPhotos.length} KHOẢNH KHẮC
           </span>
         </div>
 
