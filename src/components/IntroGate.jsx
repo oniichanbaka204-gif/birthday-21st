@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Gift, Volume2, Sparkles, Heart } from 'lucide-react';
+import { Gift, Volume2, Sparkles, Heart, Loader2 } from 'lucide-react';
+import { startSong } from '../utils/audioPlayer';
 
 export default function IntroGate({ onStart }) {
+  const [isBuffering, setIsBuffering] = useState(false);
+
+  const handleClick = () => {
+    if (isBuffering) return;
+    setIsBuffering(true);
+
+    // Kích hoạt phát nhạc và CHỈ chuyển sang màn hình đếm ngược khi nhạc THỰC SỰ phát ra loa
+    startSong(() => {
+      onStart();
+    });
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md px-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md px-4 select-none">
       {/* Festive luxury emerald & gold light bursts */}
       <div className="absolute w-80 h-80 sm:w-[500px] sm:h-[500px] rounded-full bg-emerald-400/25 blur-3xl pointer-events-none" />
       <div className="absolute w-60 h-60 sm:w-96 sm:h-96 rounded-full bg-yellow-400/20 blur-2xl pointer-events-none" />
@@ -20,7 +33,7 @@ export default function IntroGate({ onStart }) {
           animate={{ y: [0, -8, 0], rotate: [0, -2, 2, 0] }}
           transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
           className="relative mb-6 w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-emerald-400 via-teal-300 to-yellow-300 p-0.5 shadow-[0_0_35px_rgba(52,211,153,0.6)] flex items-center justify-center cursor-pointer"
-          onClick={onStart}
+          onClick={handleClick}
         >
           <div className="w-full h-full bg-[#0e3b2c] rounded-2xl flex items-center justify-center">
             <Gift className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-300 drop-shadow-[0_0_12px_#fde047]" />
@@ -44,14 +57,22 @@ export default function IntroGate({ onStart }) {
           <span>Vui lòng bật âm lượng để lắng nghe giai điệu sinh nhật</span>
         </div>
 
-        {/* Big Start Button */}
+        {/* Big Start Button with Buffering State */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={onStart}
-          className="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-emerald-950 font-bold text-base sm:text-lg shadow-[0_0_30px_rgba(250,204,21,0.6)] hover:shadow-[0_0_45px_rgba(250,204,21,0.8)] transition-all flex items-center justify-center gap-2 cursor-pointer"
+          onClick={handleClick}
+          disabled={isBuffering}
+          className="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 text-emerald-950 font-bold text-base sm:text-lg shadow-[0_0_30px_rgba(250,204,21,0.6)] hover:shadow-[0_0_45px_rgba(250,204,21,0.8)] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-80"
         >
-          <span>Khám Phá Ngay ✨</span>
+          {isBuffering ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin text-emerald-950" />
+              <span>Đang Chuẩn Bị Nhạc... 🎵</span>
+            </>
+          ) : (
+            <span>Khám Phá Ngay ✨</span>
+          )}
         </motion.button>
       </motion.div>
     </div>

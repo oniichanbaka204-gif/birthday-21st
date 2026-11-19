@@ -1,29 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getAudioCurrentTime } from '../utils/audioPlayer';
 
 export default function CountdownScreen({ onComplete }) {
   const [count, setCount] = useState(10);
 
   useEffect(() => {
-    // Chỉ đếm ngược trực quan đồng bộ theo nhạc amthanh.mp3 của người dùng
-    const timer = setInterval(() => {
-      setCount((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setTimeout(() => {
-            onComplete();
-          }, 800);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+    let animId;
+    let completed = false;
+    const startTime = Date.now();
 
-    return () => clearInterval(timer);
+    const syncCountdown = () => {
+      if (completed) return;
+
+      const audioTime = getAudioCurrentTime();
+      // Nếu audio đang phát, đồng bộ trực tiếp theo thời gian phát thực tế của audio
+      // Nếu audio bị lỗi hoặc không có, fallback theo thời gian thực (Date.now())
+      const elapsed = audioTime > 0 ? audioTime : (Date.now() - startTime) / 1000;
+      
+      const currentRemaining = Math.max(0, 10 - Math.floor(elapsed));
+      setCount(currentRemaining);
+
+      if (elapsed >= 10) {
+        completed = true;
+        setTimeout(() => {
+          onComplete();
+        }, 500);
+        return;
+      }
+
+      animId = requestAnimationFrame(syncCountdown);
+    };
+
+    animId = requestAnimationFrame(syncCountdown);
+
+    return () => {
+      cancelAnimationFrame(animId);
+    };
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-gradient-to-b from-[#165540]/95 via-[#104332]/95 to-[#0b2f23]/98 backdrop-blur-md px-4 overflow-hidden">
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-gradient-to-b from-[#165540]/95 via-[#104332]/95 to-[#0b2f23]/98 backdrop-blur-md px-4 overflow-hidden select-none">
       {/* Decorative luxury rings */}
       <div className="absolute w-[320px] h-[320px] sm:w-[500px] sm:h-[500px] rounded-full border border-emerald-400/30 animate-ping opacity-30 pointer-events-none" />
       <div className="absolute w-[220px] h-[220px] sm:w-[350px] sm:h-[350px] rounded-full border-2 border-yellow-300/30 animate-pulse pointer-events-none" />
@@ -80,7 +97,7 @@ export default function CountdownScreen({ onComplete }) {
       </div>
 
       <p className="text-emerald-200/80 text-xs sm:text-sm mt-5 font-medium text-center">
-        Lắng nghe giai điệu và chuẩn bị đón nhận bất ngờ...
+        Giai điệu đang vang lên, chuẩn bị đón nhận điều bất ngờ...
       </p>
     </div>
   );

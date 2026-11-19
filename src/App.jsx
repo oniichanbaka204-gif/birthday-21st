@@ -36,7 +36,6 @@ export default function App() {
   }, []);
 
   const handleStart = () => {
-    startSong();
     setStage('countdown');
   };
 
