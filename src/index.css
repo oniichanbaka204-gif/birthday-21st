@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background-color: #061a14;
+    color: #f0fdf4;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom glow text effect matching the reference image */
+.glow-gold-text {
+  font-family: 'Dancing Script', 'Great Vibes', cursive;
+  color: #fff9db;
+  text-shadow: 
+    0 0 5px #fffae6,
+    0 0 10px #ffe066,
+    0 0 20px #ffcc00,
+    0 0 35px #ffaa00,
+    0 0 50px #ff8800,
+    0 0 80px rgba(255, 136, 0, 0.6);
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.7));
+}
+
+.glow-gold-subtle {
+  text-shadow: 
+    0 0 8px rgba(255, 224, 102, 0.7),
+    0 0 16px rgba(255, 170, 0, 0.4);
+}
+
+.glow-box-gold {
+  box-shadow: 
+    0 0 15px rgba(255, 204, 0, 0.25),
+    0 0 30px rgba(255, 170, 0, 0.15),
+    inset 0 0 15px rgba(255, 224, 102, 0.1);
+}
+
+.glow-box-emerald {
+  box-shadow: 
+    0 0 20px rgba(16, 185, 129, 0.2),
+    0 0 40px rgba(5, 150, 105, 0.1);
+}
+
+/* Star twinkle effect */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Filmstrip Perforations */
+.film-perforations-top {
+  background-image: radial-gradient(circle, #061a14 32%, transparent 34%);
+  background-size: 24px 20px;
+  background-repeat: repeat-x;
+}
+
+.film-perforations-bottom {
+  background-image: radial-gradient(circle, #061a14 32%, transparent 34%);
+  background-size: 24px 20px;
+  background-repeat: repeat-x;
+}
+
+/* Marquee Animations for 2-tier Filmstrip */
+@keyframes marquee-ltr {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes marquee-rtl {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marquee-rtl 40s linear infinite;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marquee-ltr 45s linear infinite;
+}
+
+.pause-hover:hover {
+  animation-play-state: paused;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #04130e;
+}
+::-webkit-scrollbar-thumb {
+  background: #15803d;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #22c55e;
+}
