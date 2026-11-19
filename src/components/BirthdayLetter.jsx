@@ -25,7 +25,7 @@ export default function BirthdayLetter({ onOpenWishModal }) {
         console.error('Error loading letter:', err);
         // Fallback default message
         setLetterContent(
-          'Chúc mừng sinh nhật tuổi 21 của cô gái tuyệt vời! Chúc bạn luôn rạng rỡ, hạnh phúc và tràn đầy năng lượng tích cực! 🎂💚'
+          'Chúc mừng sinh nhật tuổi 21 của cô gái tuyệt vời! Chúc em luôn rạng rỡ, hạnh phúc và tràn đầy năng lượng tích cực! 🎂💚'
         );
         setLoading(false);
       });
