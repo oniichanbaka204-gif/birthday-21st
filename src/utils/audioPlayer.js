@@ -1,92 +1,19 @@
-// Audio player with Web Audio API synthesizer fallback
-// Supports custom MP3 file at '/audio/birthday-song.mp3'
+// Trình phát âm thanh độc quyền sử dụng file amthanh.mp3 của người dùng
+// Đã loại bỏ hoàn toàn các tiếng chuông beep / synthesizer tự tạo
 
-let audioCtx = null;
 let currentAudioElement = null;
 
-function getAudioContext() {
-  if (!audioCtx) {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (AudioContext) {
-      audioCtx = new AudioContext();
+// Phát bài hát amthanh.mp3
+export function startSong() {
+  try {
+    if (currentAudioElement) {
+      currentAudioElement.play().catch(() => {});
+      return;
     }
-  }
-  if (audioCtx && audioCtx.state === 'suspended') {
-    audioCtx.resume();
-  }
-  return audioCtx;
-}
 
-// Plays a pleasant crystal bell chime for countdown numbers
-export function playCountdownBeep(number) {
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const osc = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-
-    // Scale pitch higher as we approach 1
-    // 10 -> low pleasant chime, 1 -> higher sparkling bell
-    const baseFreq = 320;
-    const freq = baseFreq + (10 - number) * 55;
-
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-    // Envelope
-    gainNode.gain.setValueAtTime(0.001, ctx.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.05);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.55);
-
-    osc.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
-    osc.start();
-    osc.stop(ctx.currentTime + 0.6);
-  } catch (err) {
-    console.warn("Audio chime could not play:", err);
-  }
-}
-
-// Plays a happy fanfare chord when reaching 0 / Happy Birthday reveal
-export function playBirthdayFanfare() {
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return;
-
-    const chords = [523.25, 659.25, 783.99, 1046.5]; // C Major arpeggio
-    chords.forEach((freq, index) => {
-      setTimeout(() => {
-        const osc = ctx.createOscillator();
-        const gainNode = ctx.createGain();
-
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-        gainNode.gain.setValueAtTime(0.001, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.08);
-        gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
-
-        osc.connect(gainNode);
-        gainNode.connect(ctx.destination);
-
-        osc.start();
-        osc.stop(ctx.currentTime + 1.3);
-      }, index * 120);
-    });
-  } catch (err) {
-    console.warn("Audio fanfare error:", err);
-  }
-}
-
-// Manages background music playback
-export function startSong(onFallback) {
-  try {
-    // Try amthanh.mp3 first, then birthday-song.mp3
     const audio = new Audio('/audio/amthanh.mp3');
     audio.loop = true;
-    audio.volume = 0.8;
+    audio.volume = 0.9;
 
     const playPromise = audio.play();
     if (playPromise !== undefined) {
@@ -95,23 +22,11 @@ export function startSong(onFallback) {
           currentAudioElement = audio;
         })
         .catch((error) => {
-          console.log("Trying /audio/birthday-song.mp3 fallback...");
-          const fallbackAudio = new Audio('/audio/birthday-song.mp3');
-          fallbackAudio.loop = true;
-          fallbackAudio.volume = 0.8;
-          fallbackAudio.play()
-            .then(() => {
-              currentAudioElement = fallbackAudio;
-            })
-            .catch((e) => {
-              console.log("No audio file found or autoplay blocked. Using synth audio fallback.");
-              if (onFallback) onFallback();
-            });
+          console.log("Audio play request failed or blocked by browser:", error);
         });
     }
   } catch (e) {
-    console.log("Audio creation error:", e);
-    if (onFallback) onFallback();
+    console.error("Audio error:", e);
   }
 }
 
@@ -123,7 +38,7 @@ export function pauseSong() {
 
 export function resumeSong() {
   if (currentAudioElement) {
-    currentAudioElement.play();
+    currentAudioElement.play().catch(() => {});
   }
 }
 

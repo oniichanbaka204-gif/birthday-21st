@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { playCountdownBeep, playBirthdayFanfare } from '../utils/audioPlayer';
 
 export default function CountdownScreen({ onComplete }) {
   const [count, setCount] = useState(10);
 
   useEffect(() => {
-    playCountdownBeep(10);
-
+    // Chỉ đếm ngược trực quan đồng bộ theo nhạc amthanh.mp3 của người dùng
     const timer = setInterval(() => {
       setCount((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          playBirthdayFanfare();
           setTimeout(() => {
             onComplete();
           }, 800);
           return 0;
         }
-        playCountdownBeep(prev - 1);
         return prev - 1;
       });
     }, 1000);
@@ -84,7 +80,7 @@ export default function CountdownScreen({ onComplete }) {
       </div>
 
       <p className="text-emerald-200/80 text-xs sm:text-sm mt-5 font-medium text-center">
-        Điều tuyệt vời nhất đang chuẩn bị bừng sáng...
+        Lắng nghe giai điệu và chuẩn bị đón nhận bất ngờ...
       </p>
     </div>
   );
