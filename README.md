@@ -2,7 +2,7 @@
 
 Trang web chúc mừng sinh nhật được thiết kế riêng với tông màu **Xanh Lục Bảo Huyền Ảo** kết hợp **Ánh Vàng Hoàng Kim** rực rỡ, tối ưu hoàn hảo cho cả điện thoại di động và máy tính.
 
-🔗 **GitHub Repository:** [https://github.com/PtSon2204/birthday-21st](https://github.com/PtSon2204/birthday-21st)
+🔗 **GitHub Repository:** [https://github.com/oniichanbaka204-gif/birthday-21st](https://github.com/oniichanbaka204-gif/birthday-21st)
 
 ---
 
@@ -37,10 +37,10 @@ Trang web chúc mừng sinh nhật được thiết kế riêng với tông màu
 
 ## 🚀 Triển Khai Lên Vercel (1 Click)
 
-Dự án đã được đưa lên GitHub tại: **[https://github.com/PtSon2204/birthday-21st](https://github.com/PtSon2204/birthday-21st)**
+Dự án đã được đưa lên GitHub tại: **[https://github.com/oniichanbaka204-gif/birthday-21st](https://github.com/oniichanbaka204-gif/birthday-21st)**
 
 1. Truy cập: **[https://vercel.com/new](https://vercel.com/new)**
-2. Đăng nhập tài khoản Vercel bằng GitHub `PtSon2204`.
+2. Đăng nhập tài khoản Vercel bằng GitHub `oniichanbaka204-gif`.
 3. Bấm **"Import"** cạnh repository **`birthday-21st`**.
 4. Bấm nút **"Deploy"** (Vercel sẽ tự động cấu hình Vite, build trong 15 giây).
 5. Bạn sẽ nhận được đường link chính thức (dạng `https://birthday-21st.vercel.app`) để gửi ngay cho người ấy!
