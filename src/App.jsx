@@ -30,9 +30,11 @@ export default function App() {
   });
   const [isWishModalOpen, setIsWishModalOpen] = useState(false);
 
-  // Tải danh sách lời chúc từ Google Sheets (nếu đã cài đặt URL)
+  // Tải danh sách lời chúc từ Google Sheets và tự động cập nhật thời gian thực
   useEffect(() => {
-    if (GOOGLE_SCRIPT_URL) {
+    if (!GOOGLE_SCRIPT_URL) return;
+
+    const loadWishes = () => {
       fetch(GOOGLE_SCRIPT_URL)
         .then((res) => res.json())
         .then((data) => {
@@ -46,7 +48,15 @@ export default function App() {
         .catch((err) => {
           console.log("Google Sheets sync pending:", err);
         });
-    }
+    };
+
+    // Tải ngay khi mở web
+    loadWishes();
+
+    // Tự động kiểm tra lời chúc mới mỗi 12 giây để nếu ai gửi lời chúc, máy cô gái lập tức nhận được
+    const pollInterval = setInterval(loadWishes, 12000);
+
+    return () => clearInterval(pollInterval);
   }, []);
 
   const handleStart = () => {
